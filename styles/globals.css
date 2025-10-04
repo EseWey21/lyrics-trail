@@ -1,2 +1,52 @@
 html, body, #root { height: 100%; }
-body { margin: 0; background: #000; }
+body {
+  margin: 0;
+  background: #000;   /* fondo negro */
+  color: #eee;        /* texto claro global */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}
+
+/* --- Animaciones para la letra --- */
+.lyrics-frame {
+  width: min(92vw, 70ch);
+  margin: 0 auto;
+  position: relative;
+  min-height: 40vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.verse {
+  font-size: clamp(22px, 4vw, 42px);
+  line-height: 1.35;
+  letter-spacing: 0.15px;
+  font-weight: 500;
+  white-space: pre-line; /* respeta los saltos \n */
+  color: #eee;        /* texto claro global */
+}
+
+/* Trail por carácter (entrada) */
+.trail-char {
+  opacity: 0;
+  transform: translateY(0.5em);
+  animation: trail var(--trail-dur, 900ms) var(--ease, cubic-bezier(.22,1,.36,1)) forwards;
+  animation-delay: calc(var(--i) * 22ms);
+}
+
+@keyframes trail {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Salida/scroll-float del verso anterior */
+.float-out {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  animation: floatOut var(--float-dur, 520ms) var(--ease, cubic-bezier(.22,1,.36,1)) forwards;
+}
+
+@keyframes floatOut {
+  to { opacity: 0; transform: translateY(-24px) scale(.98); }
+}
